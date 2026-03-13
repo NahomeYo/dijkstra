@@ -109,4 +109,6 @@ The greedy idea behind Dijkstra's algorithm is that once the algorithm selects t
 
 After choosing the current vertex, the algorithm examines each outgoing edge and performs relaxation. That means it checks whether going through the current vertex gives a shorter path to a neighbor than the best path recorded so far. If it does, the stored distance for that neighbor is updated. Repeating that process causes the correct shortest-path distances to spread outward from the start vertex.
 
+In the JavaScript code, the unvisited vertices are stored in a `Set`, which makes it easy to add, remove, and check whether a vertex has already been finalized. The graph itself is stored as an object whose values are arrays of `[neighbor, weight]` pairs, so the algorithm can loop through edges with `for...of` and update the `distances` object directly.
+
 This version does not use a priority queue. Instead, it scans the entire unvisited set each round to find the next vertex to process. That selection step costs `O(V)` each time, so the full implementation runs in `O(V^2 + E)` time. The graph representation and distance table together use `O(V + E)` space.
