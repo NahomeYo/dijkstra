@@ -1,20 +1,26 @@
----
-title: "Dijkstra HTML Encoding"
-output: github_document
----
+# Dijkstra
 
-# HTML Encoding Map
+## Complexity
 
-The Dijkstra page is encoded as a single algorithm card arranged in this order:
+- Best: O(V^2 + E)
+- Worst: O(V^2 + E)
+- Avg: O(V^2 + E)
+- Space: O(V + E)
 
-1. `\<title>` and the visible heading identify the page as "Dijkstra".
-2. The top action bar contains the project links and the complexity statistics.
-3. `Problem Description` states that the implementation computes shortest-path distances in a graph with non-negative edge weights.
-4. `Code` is inserted into the shared `codeBox` container from `main.js`.
-5. `Algorithm Steps` appears as a paragraph-wrapped unordered list.
-6. `Explanation` documents the implementation detail that this version scans the unvisited set instead of using a priority queue, so the page reports `O(V^2 + E)` time.
-7. `Example/Demo` is the final `exampleBox` preformatted output area.
+## Problem Description
 
-# Structural Notes
+Dijkstra's algorithm finds the shortest path distances from one start vertex to every reachable vertex in a weighted graph with non-negative edge weights. This implementation stores a set of unvisited vertices and repeatedly selects the unvisited vertex with the smallest tentative distance before relaxing its outgoing edges.
 
-The explanation is intentionally tied to the actual code, not to a different Dijkstra variant. That means the HTML now matches the JavaScript implementation's vertex-selection strategy, runtime, and space usage.
+## Algorithm Steps
+
+1. Initialize every vertex distance to infinity except the start vertex, which begins at 0.
+2. Place every vertex in the unvisited set.
+3. Repeatedly choose the unvisited vertex with the smallest tentative distance.
+4. For each outgoing edge from that vertex, test whether the path through the current vertex produces a shorter distance to the neighbor.
+5. If the new path is shorter, update the neighbor's stored distance.
+6. Remove the current vertex from the unvisited set because its shortest distance is finalized.
+7. Continue until no unvisited vertices remain.
+
+## Explanation
+
+The key greedy idea is that once the algorithm selects the unvisited vertex with the smallest tentative distance, that distance is final as long as every edge weight is non-negative. This version does not use a priority queue. Instead, it scans the full unvisited set each round to find the next vertex to process, which costs `O(V)` per selection and leads to a total runtime of `O(V^2 + E)`. The graph representation and distance table together use `O(V + E)` space.
